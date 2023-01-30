@@ -1,0 +1,10 @@
+{
+  "jwt" : {
+    "secret": "123456"
+  },
+  "network": {
+    "ipOrDomain": "localhost",
+    "port": 3005,
+    "protocol": "http"
+  }
+}
