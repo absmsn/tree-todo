@@ -7,11 +7,10 @@ import {
   Controller,
   ForbiddenException,
   UnauthorizedException,
-  NotFoundException,
-  Res,
+  NotFoundException
 } from '@nestjs/common';
-import { Response } from 'express';
 import Digest from 'src/utils/digest';
+import { createUserAttachmentDir } from 'src/utils/file';
 import { FindManyOptions } from 'typeorm';
 import { AuthService } from '../auth/auth.service';
 import { MapService } from '../map/map.service';
@@ -29,12 +28,13 @@ export class UserController {
   ) {}
 
   @Post("/")
-  async addUser(@Body() body: CreateUserDto, @Res() res: Response) {
+  async addUser(@Body() body: CreateUserDto) {
     const user = await this.userService.findOne({
       where: {email: body.email}
     });
     if (!user) {
       const newUser = await this.userService.add(body);
+      await createUserAttachmentDir(newUser.id);
       const token = this.authService.login(newUser.id);
       return {
         id: newUser.id,
