@@ -36,6 +36,11 @@ export async function createUserAttachmentDir(userId: number) {
   await ifDirNotExistsThenCreate(dir);
 }
 
+export async function deleteUserAttachmentDir(userId: number) {
+  const dir = join(__dirname, `../../attachments/${userId}`);
+  await ifDirExistsThenDelete(dir);
+}
+
 export async function createMapAttachmentDir(userId: number, mapId: number) {
   const dir = join(__dirname, `../../attachments/${userId}/${mapId}`);
   await ifDirNotExistsThenCreate(dir);

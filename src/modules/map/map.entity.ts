@@ -19,7 +19,9 @@ export class Map {
   @Column()
   userId: number;
 
-  @ManyToOne(() => User, (user) => user.maps)
+  @ManyToOne(() => User, (user) => user.maps, {
+    onDelete: "CASCADE"
+  })
   user: User
 
   @OneToMany(() => Node, (node) => node.map)

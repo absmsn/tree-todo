@@ -7,10 +7,11 @@ import {
   Controller,
   ForbiddenException,
   UnauthorizedException,
-  NotFoundException
+  NotFoundException,
+  Delete
 } from '@nestjs/common';
 import Digest from 'src/utils/digest';
-import { createUserAttachmentDir } from 'src/utils/file';
+import { createUserAttachmentDir, deleteUserAttachmentDir } from 'src/utils/file';
 import { FindManyOptions } from 'typeorm';
 import { AuthService } from '../auth/auth.service';
 import { MapService } from '../map/map.service';
@@ -69,6 +70,21 @@ export class UserController {
     } else {
       throw new NotFoundException({
         message: "Email not found"
+      });
+    }
+  }
+
+  @Delete("/:userId")
+  async removeUser(@Param("userId") userId: number) {
+    const user = await this.userService.findOne({
+      where: {id: userId}
+    });
+    if (user) {
+      await deleteUserAttachmentDir(userId);
+      await this.userService.deleteOne(userId);
+    } else {
+      throw new NotFoundException({
+        message: "User Not Found"
       });
     }
   }

@@ -23,4 +23,8 @@ export class UserService {
     await this.usersRepository.insert(newUser);
     return newUser;
   }
+
+  async deleteOne(userId: number) {
+    return await this.usersRepository.delete(userId);
+  }
 }
