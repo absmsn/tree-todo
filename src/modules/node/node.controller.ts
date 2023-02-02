@@ -58,6 +58,9 @@ export class NodeController {
 
   @Put("/node/:nodeId")
   async edit(@Param("nodeId") id: number, @Body() body: EditNodeDto) {
+    if (typeof body.finished === "boolean") {
+      body.finishTime = body.finished ? new Date() : null;
+    }
     await this.nodesService.edit(id, body);
   }
 
@@ -66,6 +69,11 @@ export class NodeController {
     if (body.ids.length !== body.contents.length) {
       throw new BadRequestException();
     }
+    body.contents.forEach(content => {
+      if (typeof content.finished === "boolean") {
+        content.finishTime = content.finished ? new Date() : null;
+      }
+    });
     await this.nodesService.editBatch(body.ids, body.contents);
   }
 
@@ -144,7 +152,7 @@ export class NodeController {
       for (let i = 0; i < body.ids.length; i++) {
         const result = await this.nodesService.getUserAndMapOfNode(body.ids[i]);
         if (result) {
-          await deleteNodeAttachmentDir(result[0], result[1], body.ids[i]);
+          await deleteNodeAttachmentDir(result.userId, result.mapId, body.ids[i]);
         }
       }
       await this.nodesService.remove(body.ids);
