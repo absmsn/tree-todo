@@ -20,4 +20,8 @@ export class TagService {
   async removeOne(id: number) {
     await this.tagsRepository.delete(id);
   }
+
+  async edit(id: number, content: any) {
+    await this.tagsRepository.update(id, content);
+  }
 }
