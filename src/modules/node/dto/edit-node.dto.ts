@@ -1,8 +1,9 @@
 export default class EditNodeDto {
   title: string;
   createTime: Date;
-  finishedTime: Date;
+  finishTime: Date;
   finished: Boolean;
   comment: string;
+  repeat: string;
   backgroundImageFileName: string;
 };

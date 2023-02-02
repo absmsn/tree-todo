@@ -1,7 +1,7 @@
 export default class CreateNodeDto {
   mapId: number;
   title: string;
-  finishedTime: Date;
+  finishTime: Date;
   finished: Boolean;
   comment: string;
   priority: number;

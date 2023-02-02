@@ -30,7 +30,7 @@ export class Node {
   createTime: Date
 
   @Column({nullable: true})
-  finishedTime: Date
+  finishTime: Date
 
   @Column()
   finished: Boolean
@@ -40,6 +40,9 @@ export class Node {
 
   @Column()
   priority: number;
+
+  @Column({default: ""})
+  repeat: string;
 
   @Column({nullable: true})
   backgroundImageFileName: string;
