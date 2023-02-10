@@ -32,17 +32,20 @@ export class Node {
   @Column({nullable: true})
   finishTime: Date
 
-  @Column()
+  @Column({default: false})
   finished: Boolean
 
   @Column()
   comment: string;
 
-  @Column()
+  @Column({default: 0})
   priority: number;
 
   @Column({default: ""})
   repeat: string;
+
+  @Column({default: false})
+  autoFinish: boolean;
 
   @Column({nullable: true})
   backgroundImageFileName: string;

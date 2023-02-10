@@ -5,5 +5,6 @@ export default class EditNodeDto {
   finished: Boolean;
   comment: string;
   repeat: string;
+  autoFinish: boolean;
   backgroundImageFileName: string;
 };

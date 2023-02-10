@@ -5,5 +5,6 @@ export default class CreateNodeDto {
   finished: Boolean;
   comment: string;
   priority: number;
+  autoFinish: boolean;
   parentId: number;
 };

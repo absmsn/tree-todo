@@ -25,12 +25,12 @@ import {
   createNodeAttachmentDir,
   deleteNodeAttachmentDir,
   getNodeBackgroundImagePath,
-  readNodeAttachment,
   removeNodeBackgroundImage,
   writeNodeAttachment
 } from 'src/utils/file';
 import { Response } from 'express';
-import { createReadStream, createWriteStream } from 'fs';
+import { createReadStream } from 'fs';
+var _ = require('lodash/core');
 
 type EditNodeBatchDto = {
   ids: number[];
@@ -61,7 +61,9 @@ export class NodeController {
     if (typeof body.finished === "boolean") {
       body.finishTime = body.finished ? new Date() : null;
     }
-    await this.nodesService.edit(id, body);
+    if (body && !_.isEmpty(body)) {
+      await this.nodesService.edit(id, body);
+    }
   }
 
   @Put("/nodes")
